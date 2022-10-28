@@ -19,7 +19,6 @@
 		// generating financial info
 		$page_obj->set_new_financialWork_obj($pdo_obj, $_SESSION["email"]);
 		echo $page_obj->get_financial_content(); 
-		echo "fuck";
 	?><br />
 	<div class="title_Bill">
 		<div class="content_Bill">

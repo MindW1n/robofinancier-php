@@ -19,6 +19,7 @@
 			$page_obj->financial_obj_put_on_BrokerAccount();
 			$page_obj->financial_obj_put_on_BankAccount();
 			$page_obj->financial_obj_data_base_update();
+			echo "b]";
 		}
 	?>
 	<div class="title_Bill">
