@@ -10,6 +10,7 @@
 			$this->buttons[] = ["profit.php", "Enter income on deposit and brokerage account"];
 			$this->buttons[] = ["viewRecords.php", "View records"];
 			$this->buttons[] = ["../../logout.php", "Logout"];
+			asdfdfad
 		}
 	}
 ?>
