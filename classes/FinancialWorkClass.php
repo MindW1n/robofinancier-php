@@ -13,8 +13,8 @@
 		private $costs_SafetyBag;
 		private $cash_BrokerAccount;
 		private $cash_BankAccount;
-		private $cash_BankAccount_less;
-		private $cash_BrokerAccount_less;
+		private $put_BankAccount_less;
+		private $put_BrokerAccount_less;
 		private $cash_free;
 		private $cash_FirstDream; 
 		private $cash_SecondDream;
@@ -69,12 +69,15 @@
 
 		public function set_properties(array $args)
 		{
-			$variables_names = ["connection", "email", "income", "costs_SafetyBag",  "costs_FirstDream", "costs_SecondDream", "costs_free", "put_BrokerAccount_less", "put_BankAccount_less", "income_BankAccount",  "income_BrokerageAccount"];
-			for($i = 0; $i < count($array); $i++) {
+			for($i = 0; $i < count($args); $i++) {
 
-				$this->$variables_names[$i] = $array[$i];
+				if($args[0][$i] === "") $args[0][$i] = 0;
 			}
-			echo True;
+			$variables_names = ["connection", "email", "income", "costs_SafetyBag",  "costs_FirstDream", "costs_SecondDream", "costs_free", "put_BrokerAccount_less", "put_BankAccount_less", "income_BankAccount",  "income_BrokerageAccount"];
+			for($i = 0; $i < count($args[0]); $i++) {
+				$string = $variables_names[$i];
+				$this->$string = $args[0][$i];
+			}
 		}
 
 		public function profit()
@@ -116,38 +119,41 @@
 
 		public function put_on_BrokerAccount()
 		{
-			$this->put_BrokerAccount -= (double)$this->cash_BrokerAccount_less;
-			$this->cash_BrokerAccount += (double)$this->cash_BrokerAccount_less;
+			$this->put_BrokerAccount -= (double)$this->put_BrokerAccount_less;
+			$this->cash_BrokerAccount += (double)$this->put_BrokerAccount_less;
+		}
+
+		public function calculate_percents()
+		{
+			if($this->cash_BankAccount != 0) {
+				$this->percent_SafetyBag = (double)$this->cash_SafetyBag / (double)$this->cash_BankAccount * 100;
+				$this->percent_FirstDream = (double)$this->cash_FirstDream / (double)$this->cash_BankAccount * 100;
+				$this->percent_SecondDream = (double)$this->cash_SecondDream / (double)$this->cash_BankAccount * 100;
+			}
 		}
 
 		public function put_on_BankAccount()
 		{
-			$this->put_BankAccount -= (double)$this->cash_BankAccount_less;
-			$this->cash_BankAccount += (double)$this->cash_BankAccount_less;
-			$this->cash_FirstDream   += round((double)$this->cash_BankAccount_less * 38.095239 / 100, 2);
-			$this->cash_SecondDream  += round((double)$this->cash_BankAccount_less * 38.095238 / 100, 2);
-			$this->cash_SafetyBag    += round((double)$this->cash_BankAccount_less * 23.809523 / 100, 2);
-			@$this->percent_SafetyBag = (double)$this->cash_SafetyBag / (double)$this->cash_BankAccount * 100;
-			@$this->percent_FirstDream = (double)$this->cash_FirstDream / (double)$this->cash_BankAccount * 100;
-			@$this->percent_SecondDream = (double)$this->cash_SecondDream / (double)$this->cash_BankAccount * 100;
+			$this->put_BankAccount -= (double)$this->put_BankAccount_less;
+			$this->cash_BankAccount += (double)$this->put_BankAccount_less;
+			$this->cash_FirstDream   += round((double)$this->put_BankAccount_less * 38.095239 / 100, 2);
+			$this->cash_SecondDream  += round((double)$this->put_BankAccount_less * 38.095238 / 100, 2);
+			$this->cash_SafetyBag    += round((double)$this->put_BankAccount_less * 23.809523 / 100, 2);
+			$this->calculate_percents();
 		}
 
 		public function cash_FirstDream_less()
 		{
 			$this->cash_FirstDream -= (double)$this->costs_FirstDream; 
 			$this->cash_BankAccount -= (double)$this->costs_FirstDream;
-			@$this->percent_SafetyBag = (double)$this->cash_SafetyBag / (double)$this->cash_BankAccount * 100;
-			@$this->percent_FirstDream = (double)$this->cash_FirstDream / (double)$this->cash_BankAccount * 100;
-			@$this->percent_SecondDream = (double)$this->cash_SecondDream / (double)$this->cash_BankAccount * 100;
+			$this->calculate_percents();
 		}
 
 		public function cash_SecondDream_less()
 		{
 			$this->cash_SecondDream -= (double)$this->costs_SecondDream;
 			$this->cash_BankAccount -= (double)$this->costs_SecondDream;
-			@$this->percent_SafetyBag = (double)$this->cash_SafetyBag / (double)$this->cash_BankAccount * 100;
-			@$this->percent_FirstDream = (double)$this->cash_FirstDream / (double)$this->cash_BankAccount * 100;
-			@$this->percent_SecondDream = (double)$this->cash_SecondDream / (double)$this->cash_BankAccount * 100;
+			$this->calculate_percents();
 		}
 
 		public function cash_free_less()
@@ -159,12 +165,10 @@
 		{
 			$this->cash_SafetyBag -= (double)$this->costs_SafetyBag;
 			$this->cash_BankAccount -= (double)$this->costs_SafetyBag;
-			@$this->percent_SafetyBag = (double)$this->cash_SafetyBag / (double)$this->cash_BankAccount * 100;
-			@$this->percent_FirstDream = (double)$this->cash_FirstDream / (double)$this->cash_BankAccount * 100;
-			@$this->percent_SecondDream = (double)$this->cash_SecondDream / (double)$this->cash_BankAccount * 100;
+			$this->calculate_percents();
 		}
 
-		public function datebase_update()
+		public function database_update()
 		{
 			try 
 			{
@@ -210,8 +214,7 @@
 				$string .= $result['percent_SafetyBag'] . " ";
 				$string .= $result['percent_FirstDream'] . " ";
 				$string .= $result['percent_FirstDream']. " \n";
-				$file = fopen("database_dump.txt", "a+b");
-				fwrite($file, $string);
+				// TODO: add a database_dump.txt file
 			}
 
 			catch(PDOException $e)

@@ -10,13 +10,9 @@
 
 		public function __call($methodname, $args)
 		{
-			if(preg_match("/^financialWork_obj*/", $methodname)) {
-				echo 1;
-				$this->financialWork_obj->substr($methodname, 17);
-			}
-			else
-			{
-				echo 0;
+			if(preg_match("/financialWork_obj\S+/", $methodname)) {
+				$methodname = substr($methodname, 18);
+				$this->financialWork_obj->$methodname($args);
 			}
 		}
 
@@ -35,6 +31,7 @@
 			$string = "";
 			for($i = 0; $i < count($this->buttons); $i++) {
 
+				if($this->buttons[$i][1] == "Logout") $string .= "<br />";
 				$string .= "<a href=\"" . $this->buttons[$i][0] . "\" class=\"btn-lg btn-primary btn-block btn\" id=\"btn__register\">" . $this->buttons[$i][1] . "</a>";
 				if(($i + 1) % 5 == 0) $string .= "<br />";
 			}
@@ -64,6 +61,7 @@
 				$string .= "<input type=\"text\" name=\"".$this->inputs[$i][0] ."\" class=\"form-control\" placeholder=\"" .
 $this->inputs[$i][1] . "\">  ";
 			}
+			$string .= "<br />";
 			return $string;
 		}
 

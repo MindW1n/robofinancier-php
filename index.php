@@ -46,7 +46,7 @@
 			<?php } ?>
 			<?php if(!isset($ssmsg)) { ?>
 				<input type="text" name="email" placeholder="Email" class="form-control" required>
-				<input type="password" name="password" placeholder="Password" class="form-control" required>
+				<input type="password" name="password" placeholder="Password" class="form-control" required><br>
 				<button class="btn btn-primary btn-block btn-lg" id='btn__register'>Login</button> 
 			 <?php  } ?>
 		</form>
@@ -55,7 +55,7 @@
 		<?php }?>
 		<?php if(isset($ssmsg)) { ?>
 			<a href="assets/html/financialWork.php" class="btn btn-primary btn-block btn-lg" id='btn__register'>
-Let's do financial work!</a> <br>
+Let's do financial work!</a> <br><br>
 		<a href="logout.php" class="btn btn-primary btn-block btn-lg" id='btn__register'>Logout</a> 
 		<?php } ?>
 	</div>

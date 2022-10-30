@@ -1,7 +1,6 @@
 <?php 
 	class FinancialWorkPage extends Page
 	{
-		public $buttons = array();
 
 		public function __construct()
 		{

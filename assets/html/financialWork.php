@@ -7,8 +7,8 @@
 <body>
 	<?php 
 		// generating header
-		echo $page_obj->get_header(); 
-		echo $page_obj->get_username(); 
+		echo $page_obj->get_header();
+		echo $page_obj->get_username();
 	?>
 	<div class="title_Bill">
 		<div class="content_Bill">

@@ -15,10 +15,7 @@
 			$BrokerAcc = $_REQUEST['BrokerAcc'];
 			$BankAcc = $_REQUEST['BankAcc'];
 			$args = [$pdo_obj, $_SESSION['email'], 0, 0, 0, 0, 0, $BrokerAcc, $BankAcc, 0, 0];
-			$page_obj->financial_obj_set_properties($args);
-			$page_obj->financial_obj_put_on_BrokerAccount();
-			$page_obj->financial_obj_put_on_BankAccount();
-			$page_obj->financial_obj_data_base_update();
+			$page_obj->do_financial_work($args);
 		}
 	?>
 	<div class="title_Bill">
