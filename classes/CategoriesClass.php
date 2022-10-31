@@ -11,6 +11,7 @@
 			$query = "SELECT name FROM categories WHERE type=\"$type\"";
 			$raw = $this->pdo_obj->query($query);
 			$result = $raw->fetchall();
+			return $result;
 			if (is_array($result))
 			{
 				return $result;

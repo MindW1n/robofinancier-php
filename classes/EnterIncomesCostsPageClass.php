@@ -3,6 +3,7 @@
 	{
 		public function __construct()
 		{
+			$this->title = "Enter incomes and costs";
 			$this->buttons[] = ["putOnAccounts.php", "Put on accounts"];
 			$this->buttons[] = ["profit.php", "Enter income on deposit and brokerage account"];
 			$this->buttons[] = ["viewRecords.php", "View records"];

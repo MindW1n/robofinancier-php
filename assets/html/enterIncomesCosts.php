@@ -7,6 +7,9 @@
 
 	// generating header
 	echo $page_obj->get_header();
+?>
+<body>
+<?php
 	echo $page_obj->get_username();
 
 	// generating new financial work object

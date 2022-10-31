@@ -50,13 +50,13 @@
 				<button class="btn btn-primary btn-block btn-lg" id='btn__register'>Login</button> 
 			 <?php  } ?>
 		</form>
-		<?php if(!isset($_REQUEST['email'])) { ?> 
+		<?php if(!isset($ssmsg)) { ?> 
 			<a href="assets/html/registration.php" class="btn btn-primary btn-block btn-lg">Registration</a><br>
-		<?php }?>
+		<?php } ?>
 		<?php if(isset($ssmsg)) { ?>
 			<a href="assets/html/financialWork.php" class="btn btn-primary btn-block btn-lg" id='btn__register'>
-Let's do financial work!</a> <br><br>
-		<a href="logout.php" class="btn btn-primary btn-block btn-lg" id='btn__register'>Logout</a> 
+Let's do financial work!</a><br>
+			<a href="logout.php" class="btn btn-primary btn-block btn-lg" id='btn__register'>Logout</a>
 		<?php } ?>
 	</div>
 </body>

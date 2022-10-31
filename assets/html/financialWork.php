@@ -3,11 +3,12 @@
 	spl_autoload_register(function($classname){ require_once "../../classes/$classname" . "Class.php";});
 	require_once("../../connect.php");
 	$page_obj = new FinancialWorkPage(); 
+	// generating header
+	echo $page_obj->get_header();
 ?>
 <body>
-	<?php 
-		// generating header
-		echo $page_obj->get_header();
+	<?php  
+		// getting username
 		echo $page_obj->get_username();
 	?>
 	<div class="title_Bill">
@@ -25,6 +26,9 @@
 			<h3>Account actions:</h3>
 		</div>
 	</div>
-	<?php echo $page_obj->get_buttons(); // generating links ?>
+	<?php
+		// generating links  
+		echo $page_obj->get_buttons(); 
+	?>
 </body>
 </html>

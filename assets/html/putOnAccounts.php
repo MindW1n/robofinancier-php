@@ -40,14 +40,15 @@
 		<button class="btn-lg btn-primary btn-block btn" id="btn__register">Enter</button>
 		<?php } ?>
 	</form>
-		<div class="title_Bill">
-			<div class="content_Bill">
-				<h3>Account actions:</h3>
-			</div>
+	<div class="title_Bill">
+		<div class="content_Bill">
+			<h3>Account actions:</h3>
 		</div>
-		<?php 
-			echo $page_obj->get_buttons(); // generating buttons
-		?>
+	</div>
+	<?php 
+		// generating links
+		echo $page_obj->get_buttons(); 
+	?>
 </div>
 </body>	
 </html>

@@ -14,6 +14,10 @@
 				$methodname = substr($methodname, 18);
 				$this->financialWork_obj->$methodname($args);
 			}
+			else
+			{
+				echo "<br />Couldn't find method $methodname in financialWork_obj<br />";
+			}
 		}
 
 		public function set_financial_properties(array $args)
@@ -31,7 +35,7 @@
 			$string = "";
 			for($i = 0; $i < count($this->buttons); $i++) {
 
-				if($this->buttons[$i][1] == "Logout") $string .= "<br />";
+				if($this->buttons[$i][1] == "Logout" and $i % 5 != 0) $string .= "<br />";
 				$string .= "<a href=\"" . $this->buttons[$i][0] . "\" class=\"btn-lg btn-primary btn-block btn\" id=\"btn__register\">" . $this->buttons[$i][1] . "</a>";
 				if(($i + 1) % 5 == 0) $string .= "<br />";
 			}

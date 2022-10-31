@@ -4,7 +4,7 @@
 		private $author_id;
 		private $pdo_obj;
 
-		public function __construct($author_id = none, PDO $pdo_obj)
+		public function __construct($author_id, PDO $pdo_obj)
 		{
 			$this->author_id = $author_id;
 			$this->pdo_obj = $pdo_obj;

@@ -7,11 +7,11 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="../css/style.css">
 	<title>View records</title>
 </head>
 <body>
-	<?php if(isset($_SESSION['username']))?> <h2 class="h2__username"><? echo $_SESSION['username']?></h2>
+	<?php if(isset($_SESSION['username']))?> <h2 class="h2__username"><?php echo $_SESSION['username']?></h2>
 	<a href="viewRecords.php" class="btn-lg btn-primary btn-block btn" id="btn__register">Back</a><br/><br/>
 	<?php  
 		if(isset($_POST['year']))
@@ -33,20 +33,20 @@
 			{
 				echo "<h2>All records about incomes for " . $year . ":</h2>";
 			}
-			spl_autoload_register(function($classname){ require_once "$classname" . "Class.php";});
-		 	require_once('connect.php');
-		 	$records_obj = new ViewRecords($PDO, $year, $flag);
+			spl_autoload_register(function($classname){ require_once "../../classes/$classname" . "Class.php";});
+		 	require_once('../../connect.php');
+		 	$records_obj = new ViewRecords($pdo_obj, $year, $flag);
 		 	echo $records_obj->get_content_incomes();
 		}
 		else
-		{?>
+		{ ?>
 			<br><form method="POST">
 				<input type="number" name='year' placeholder="Enter the year of records"><br><br>
 				<input type="checkbox" name="flag" id="flag">
 				<label for="flag">Do you want to watch the all records?</label><br>
 				<button class="btn-lg btn-primary btn-block btn" id="btn__register">Show records</button>
 			</form>
-		<?}
+		<?php }
 	?>
 </body>
 </html>
