@@ -214,7 +214,11 @@
 				$string .= $result['percent_SafetyBag'] . " ";
 				$string .= $result['percent_FirstDream'] . " ";
 				$string .= $result['percent_FirstDream']. " \n";
-				// TODO: add a database_dump.txt file
+				$query = "SELECT id FROM users WHERE email='$this->email'";
+				$raw = $this->pdo_obj->query($query);
+				$author_id = $raw->fetch()['id'];
+				$query = "INSERT INTO history(author_id, cash, cash_BrokerAccount, cash_BankAccount, cash_free, cash_SafetyBag, cash_FirstDream, cash_SecondDream, put_BrokerAccount, put_BankAccount, percent_SafetyBag, percent_FirstDream, percent_SecondDream) VALUES('$author_id', '$this->cash', '$this->cash_BrokerAccount', '$this->cash_BankAccount', '$this->cash_free', '$this->cash_SafetyBag', '$this->cash_FirstDream', '$this->cash_SecondDream', '$this->put_BrokerAccount', '$this->put_BankAccount', '$this->percent_SafetyBag', '$this->percent_FirstDream', '$this->percent_SecondDream')";
+				$this->pdo_obj->exec($query);
 			}
 
 			catch(PDOException $e)
