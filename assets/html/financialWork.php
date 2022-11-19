@@ -5,30 +5,41 @@
 	$page_obj = new FinancialWorkPage(); 
 	// generating header
 	echo $page_obj->get_header();
-?>
-<body>
-	<?php  
-		// getting username
-		echo $page_obj->get_username();
+	try {
+
+		$settings_object = Settings::get_settings_obj($pdo_obj);
+	}
+	catch(Exception $exception) {
+
+		echo "<h4>" . $exception->getMessage() . "</h4>" . "<br />
+		<a href=\"settingsPage.php\"class=\"btn-lg btn-primary btn-block btn\" id=\"btn__register\">Create new settings</a>";
+	}
+	if(!isset($exception)) {
 	?>
-	<div class="title_Bill">
-		<div class="content_Bill">
-			<h3>State of an account</h3>
+	<body>
+		<?php  
+			// getting username
+			echo $page_obj->get_username();
+		?>
+		<div class="title_Bill">
+			<div class="content_Bill">
+				<h3>State of an account</h3>
+			</div>
 		</div>
-	</div>
-	<?php
-		// generating financial info
-		$page_obj->set_new_financialWork_obj($pdo_obj, $_SESSION["email"]);
-		echo $page_obj->get_financial_content(); 
-	?><br />
-	<div class="title_Bill">
-		<div class="content_Bill">
-			<h3>Account actions:</h3>
+		<?php
+			// generating financial info
+			$page_obj->set_new_financialWork_obj($pdo_obj, $_SESSION["email"]);
+			echo $page_obj->get_financial_content(); 
+		?><br />
+		<div class="title_Bill">
+			<div class="content_Bill">
+				<h3>Account actions:</h3>
+			</div>
 		</div>
-	</div>
-	<?php
-		// generating links  
-		echo $page_obj->get_buttons(); 
-	?>
-</body>
-</html>
+		<?php
+			// generating links  
+			echo $page_obj->get_buttons(); 
+		?>
+	</body>
+	</html>
+	<?php } ?>

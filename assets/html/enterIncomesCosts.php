@@ -22,7 +22,7 @@
 		$SecondDream_cost = $_REQUEST['SecondDreamCost'];
 		$SafetyBag_cost = $_REQUEST['SafetyBagCost'];
 		$CashFree_cost = $_REQUEST['FreeCashCost'];
-		$args = [$pdo_obj, $_SESSION['email'], $income, $SafetyBag_cost, $FirstDream_cost, $SecondDream_cost, $CashFree_cost, 0, 0, 0, 0];
+		$args = [$pdo_obj, $_SESSION['email'], $income, $SafetyBag_cost, $FirstDream_cost, $SecondDream_cost, $CashFree_cost];
 		$page_obj->do_financial_work($args);
 	}
 	?>

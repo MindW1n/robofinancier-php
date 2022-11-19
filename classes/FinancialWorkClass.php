@@ -26,7 +26,8 @@
 		private $percent_SecondDream;
 		private $pdo_obj;
 		private $email;
-		
+		private $settings_object;
+
 		public function __construct(PDO $connection, $email, $income = 0, $costs_SafetyBag = 0,  $costs_FirstDream = 0, $costs_SecondDream = 0, $costs_free = 0, $put_BrokerAccount_less = 0, $put_BankAccount_less = 0, $income_BankAccount = 0, $income_BrokerageAccount = 0)
 		{
 			$this->email                   = $email;
@@ -40,6 +41,7 @@
 			$this->put_BrokerAccount_less = $put_BrokerAccount_less;
 			$this->income_BankAccount      = $income_BankAccount;
 			$this->income_BrokerageAccount = $income_BrokerageAccount;
+			$this->settings_object = Settings::get_settings_obj($this->pdo_obj);
 
 			try 
 			{
@@ -82,19 +84,19 @@
 
 		public function profit()
 		{
-			$this->cash              += (double)$this->income;
-			$this->cash_free         += (double)$this->income * 0.1;
-			$this->put_BrokerAccount += (double)$this->income * 0.375;
-			$this->put_BankAccount   += (double)$this->income * 0.525;
+			$this->cash              += (double)$this->income; 
+			$this->cash_free         += (double)$this->income * $this->settings_object->get_cash_free_percent() / 100;
+			$this->put_BrokerAccount += (double)$this->income * $this->settings_object->get_brokerAccount_percent() / 100;
+			$this->put_BankAccount   += (double)$this->income * $this->settings_object->get_bankAccount_percent() / 100;
 		}
 
 		public function BankAccount_profit()
 		{
 			$this->cash             += (double)$this->income_BankAccount;
 			$this->cash_BankAccount += (double)$this->income_BankAccount;
-			$this->cash_FirstDream  += round((double)$this->income_BankAccount / 100 * 38.095239, 2);
-			$this->cash_SecondDream += round((double)$this->income_BankAccount / 100 * 38.095238, 2);
-			$this->cash_SafetyBag   += round((double)$this->income_BankAccount / 100 * 23.809523, 2);
+			$this->cash_FirstDream  += round((double)$this->income_BankAccount / 100 * $this->settings_object->get_bankAccount_firstDream_proportion(), 2);
+			$this->cash_SecondDream += round((double)$this->income_BankAccount / 100 * $this->settings_object->get_bankAccount_firstDream_proportion(), 2);
+			$this->cash_SafetyBag   += round((double)$this->income_BankAccount / 100 * $this->settings_object->get_bankAccount_firstDream_proportion(), 2);
 			$this->percent_SafetyBag = (double)$this->cash_SafetyBag / (double)$this->cash_BankAccount * 100;
 			$this->percent_FirstDream = (double)$this->cash_FirstDream / (double)$this->cash_BankAccount * 100;
 			$this->percent_SecondDream = (double)$this->cash_SecondDream / (double)$this->cash_BankAccount * 100;
@@ -136,9 +138,9 @@
 		{
 			$this->put_BankAccount -= (double)$this->put_BankAccount_less;
 			$this->cash_BankAccount += (double)$this->put_BankAccount_less;
-			$this->cash_FirstDream   += round((double)$this->put_BankAccount_less * 38.095239 / 100, 2);
-			$this->cash_SecondDream  += round((double)$this->put_BankAccount_less * 38.095238 / 100, 2);
-			$this->cash_SafetyBag    += round((double)$this->put_BankAccount_less * 23.809523 / 100, 2);
+			$this->cash_FirstDream   += round((double)$this->put_BankAccount_less * $this->settings_object->get_bankAccount_firstDream_proportion() / 100, 2);
+			$this->cash_SecondDream  += round((double)$this->put_BankAccount_less * $this->settings_object->get_bankAccount_secondDream_proportion() / 100, 2);
+			$this->cash_SafetyBag    += round((double)$this->put_BankAccount_less * $this->settings_object->get_bankAccount_safetyBag_proportion() / 100, 2);
 			$this->calculate_percents();
 		}
 

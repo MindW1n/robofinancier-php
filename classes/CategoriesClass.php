@@ -8,7 +8,7 @@
 
 		public function get_categories($type)
 		{
-			$query = "SELECT name FROM categories WHERE type=\"$type\"";
+			$query = "SELECT name FROM categories WHERE type=\"$type\" AND author_id = " . $_SESSION['author_id'];
 			$raw = $this->pdo_obj->query($query);
 			$result = $raw->fetchall();
 			return $result;
@@ -24,7 +24,7 @@
 
 		public function add_category($name, $type)
 		{
-			$query = "INSERT INTO categories(name, type) VALUES('$name', '$type')";
+			$query = "INSERT INTO categories(name, type, author_id) VALUES('$name', '$type', '" . $_SESSION['author_id'] . "')";
 			$return = $this->pdo_obj->exec($query);
 			if($return === 1)
 				return 1;
