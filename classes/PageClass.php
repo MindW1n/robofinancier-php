@@ -36,7 +36,8 @@
 			for($i = 0; $i < count($this->buttons); $i++) {
 
 				if($this->buttons[$i][1] == "Logout" and $i % 5 != 0) $string .= "<br />";
-				$string .= "<a href=\"" . $this->buttons[$i][0] . "\" class=\"btn-lg btn-primary btn-block btn\" id=\"btn__register\">" . $this->buttons[$i][1] . "</a>";
+				$color = ($this->title == $this->buttons[$i][1]) ? "style = \"background-color: red;\"" : ""; 
+				$string .= "<a href=\"" . $this->buttons[$i][0] . "\" $color class=\"btn-lg btn-primary btn-block btn\" id=\"btn__register\">" . $this->buttons[$i][1] . "</a>";
 				if(($i + 1) % 5 == 0) $string .= "<br />";
 			}
 			return $string;
@@ -54,6 +55,7 @@
 							<link rel=\"stylesheet\" href=\"../css/style.css\">
 							<title>" . $this->title . "</title>
 						</head>";
+
 			return $string;
 		}
 

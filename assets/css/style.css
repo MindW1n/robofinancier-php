@@ -13,7 +13,6 @@ body {
 }
 .btn {
 	width: 150px;
-	min-width: 100px;
 }
 .h2__Registration {
 	text-align: left;
@@ -35,4 +34,13 @@ body {
 .h2__username {
 	text-align: right;
 	margin-right: 30px;
+}
+.btn {
+    transition: all .3s ease-in-out;
+    border: 0px;
+}
+.btn:hover, .btn:focus {
+    background-color: #0BC0FF;
+    color: black;
+    width: 157px;
 }

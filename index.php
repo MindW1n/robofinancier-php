@@ -9,6 +9,7 @@
 	<title>RoboFinancier</title>
 </head>
 <body>
+	<main id="swup" class="transition-fade">
 	 <?php  
 	 	require_once("connect.php");
 	 	spl_autoload_register( function($classname){ require_once "classes/$classname" . "Class.php";});
@@ -59,5 +60,6 @@ Let's do financial work!</a><br>
 			<a href="logout.php" class="btn btn-primary btn-block btn-lg" id='btn__register'>Logout</a>
 		<?php } ?>
 	</div>
+	</main>
 </body>
 </html>

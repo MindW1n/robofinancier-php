@@ -17,6 +17,7 @@
 	if(!isset($exception)) {
 	?>
 	<body>
+
 		<?php  
 			// getting username
 			echo $page_obj->get_username();
