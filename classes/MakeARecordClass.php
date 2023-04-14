@@ -24,8 +24,11 @@
 		{
 			$query = "INSERT INTO records(sum, record, category, type, date, author_id) VALUES($this->sum, '$this->record', '$this->category', '$this->type', '$this->date', $this->author_id)";
 			$return = $this->pdo_obj->exec($query);
-			if($return === 1)
+			if($return === 1) {
+			
+				shell_exec("cd /opt/lampp/bin/ && ./mysqldump -u root robofinancierdatebase > /opt/lampp/htdocs/dataBasesDumps/backup.sql");
 				return 1;
+			}
 			else
 				return 0;
 		}		

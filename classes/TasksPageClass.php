@@ -35,6 +35,10 @@
 		{
 			$query = "INSERT INTO tasks(author_id, text) VALUES('$this->author_id', '$text')";
 			$result = $this->pdo_obj->exec($query);
+			if($result) {
+
+				shell_exec("cd /opt/lampp/bin/ && ./mysqldump -u root robofinancierdatebase > /opt/lampp/htdocs/dataBasesDumps/backup.sql");
+			}
 			return $result;
 		}
 		
