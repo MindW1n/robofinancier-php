@@ -1,2 +1,2 @@
 # RoboFinancier
-Robot Financier www site
+Robot Financier application written in PHP
